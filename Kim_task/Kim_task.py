@@ -205,9 +205,9 @@ def task_12():
            f"на конечный пункт составляет соответственно {p1} и {p2}. Составить ряд распределения числа поездов, " \
            "которые прибудут в пункт назначения без опоздания. Найти M(X), D(X), G(X), F(X) этой случайной величины." \
            "Построить график F(X).\n"
-    x0 = (1-p1)*(1-p2)
-    x1 = ((1-p2)*p1)+((1-p1)*p2)
-    x2 = p1*p2
+    x0 = (1 - p1) * (1 - p2)
+    x1 = ((1 - p2) * p1) + ((1 - p1) * p2)
+    x2 = p1 * p2
     arr = {0: x0, 1: x1, 2: x2}
     m = discr_math_expectation(arr)
     d = discr_dispersion(arr)
@@ -225,29 +225,29 @@ def task_12():
 def task_13():
     answer = "13. \n"
     n = randint(1, 3)
-    p = randint(1, 6)/10
-    text = f"Случайная величина Х - число попаданий мячом в корзину при {n} броске. "\
-            f"Вероятность попадания равна {p}. Составить ряд распределения случайной величины Х. Найти M(X) и D(X).\n"
+    p = randint(1, 6) / 10
+    text = f"Случайная величина Х - число попаданий мячом в корзину при {n} броске. " \
+           f"Вероятность попадания равна {p}. Составить ряд распределения случайной величины Х. Найти M(X) и D(X).\n"
     if n == 1:
-        x0 = 1-p
+        x0 = 1 - p
         x1 = p
         arr = {0: x0, 1: x1}
         m = discr_math_expectation(arr)
         d = discr_dispersion(arr)
         answer += f"M(X)={round(m, 3)}, D(X)={round(d, 3)}\n"
     elif n == 2:
-        x0 = (1-p)**n
-        x1 = 2*((1-p)*p)
-        x2 = p**2
+        x0 = (1 - p) ** n
+        x1 = 2 * ((1 - p) * p)
+        x2 = p ** 2
         arr = {0: x0, 1: x1, 2: x2}
         m = discr_math_expectation(arr)
         d = discr_dispersion(arr)
         answer += f"M(X)={round(m, 3)}, D(X)={round(d, 3)}\n"
     elif n == 3:
-        x0 = round((1-p)**3,3)
-        x1 = round(3*(((1-p)**2)*p),3)
-        x2 = round(3*((pow(p, 2))*(1-p)),3)
-        x3 = round(p**3,3)
+        x0 = round((1 - p) ** 3, 3)
+        x1 = round(3 * (((1 - p) ** 2) * p), 3)
+        x2 = round(3 * ((pow(p, 2)) * (1 - p)), 3)
+        x3 = round(p ** 3, 3)
         arr = {0: x0, 1: x1, 2: x2, 3: x3}
         m = discr_math_expectation(arr)
         d = discr_dispersion(arr)
@@ -259,9 +259,9 @@ def task_14():
     answer = '13. \n'
     n = randint(100, 200)
     k = randint(1, 9) / 100
-    text = f"Вероятность выпуска бракованного изделия равна {k}. "\
-            f"Выпущено {n} изделий. Составить ряд распределения числа бракованных изделий. "\
-            "Найти М(X) этой случайной величины.\n"
+    text = f"Вероятность выпуска бракованного изделия равна {k}. " \
+           f"Выпущено {n} изделий. Составить ряд распределения числа бракованных изделий. " \
+           "Найти М(X) этой случайной величины.\n"
     answer += "Ряд распределения:\n"
     m = n * k
     arr = [0, 0, 0, 0, 0, 0, 0]
@@ -276,3 +276,162 @@ def task_14():
     return text, answer
 
 
+def task_15():
+    x1 = -1
+    x2 = 1
+    x3 = 2
+    p1 = randint(1, 2) / 10
+    p2 = randint(15, 35) / 100
+    p3 = round(1 - p1 - p2, 3)
+    dictx = {x1: p1, x2: p2, x3: p3}
+    y1 = 3
+    y2 = 4
+    q1 = randint(2, 6) / 10
+    q2 = round(1 - q1, 3)
+    dicty = {y1: q1, y2: q2}
+    text = f"X\t|\t{x1} |\t{x2}\t|\t{x3}\t|\n"
+    text += f"P\t|\t{p1}|\t{p2}|\t{p3}|\n\n"
+    text += f"Y\t|\t{y1}\t|\t{y2}\t|\n"
+    text += f"Q\t|\t{q1} |\t{q2}\t|\n\n"
+
+    answer = "15.\n"
+    text += "15. Независимые случайные величины X и Y заданы таблицами распределений. Найти: \n"
+    text += "1) M(X), M(Y), D(X), D(Y);\n"
+    answer += f"1) M(X)={round(x1 * p1 + x2 * p2 + x3 * p3, 4)} \nD(X)={round(discr_dispersion(dictx), 4)}\n"
+    answer += f"M(Y)={round(discr_math_expectation(dicty), 4)}\nD(Y)={round(discr_dispersion(dicty), 4)}\n"
+
+    text += "2) таблицы распределения случайных величин Z1 = 2X+Y, Z2 = X*Y;\n"
+    answer += "2)\nZ1=2X+Y\n"
+    answer += f"Z1\t|\t{2 * x1 + y1}\t|\t{2 * x1 + y2}\t|\t{2 * x2 + y1}\t|\t{2 * x2 + y2}\t|\t{2 * x3 + y1}\t|\t{2 * x3 + y2}\t|\n"
+    answer += f"P1\t|  {round(p1 * q1, 3)} |  {round(p1 * q2, 3)} |  {round(p2 * q1, 3)} |  {round(p2 * q2, 3)} |  {round(p3 * q1, 3)} |  {round(p3 * q2, 3)} |\n\n"
+    dictz1 = {2 * x1 + y1: round(p1 * q1, 3), 2 * x1 + y2: round(p1 * q2, 3), 2 * x2 + y1: round(p2 * q1, 3),
+              2 * x2 + y2: round(p2 * q2, 3), 2 * x3 + y1: round(p3 * q1, 3), 2 * x3 + y2: round(p3 * q2, 3)}
+
+    answer += "Z2 = X*Y\n"
+    answer += f"Z1\t|\t{x1 * y1}\t|\t{x1 * y2}\t|\t{x2 * y1}\t|\t{x2 * y2}\t|\t{x3 * y1}\t|\t{x3 * y2}\t|\n"
+    answer += f"P1\t|  {round(p1 * q1, 3)} |  {round(p1 * q2, 3)} |  {round(p2 * q1, 3)} |  {round(p2 * q2, 3)} |  {round(p3 * q1, 3)} |  {round(p3 * q2, 3)} |\n\n"
+    dictz2 = {x1 * y1: round(p1 * q1, 3), x1 * y2: round(p1 * q2, 3), x2 * y1: round(p2 * q1, 3),
+              x2 * y2: round(p2 * q2, 3), x3 * y1: round(p3 * q1, 3), x3 * y2: round(p3 * q2, 3)}
+
+    text += "3) M(Z1), M(Z2), D(Z1), D(Z2) непосредственно по таблицам распределений и на основании свойств математического ожидания и дисперсии."
+    answer += f"3) M(Z1)={round(discr_math_expectation(dictz1), 4)} \nM(Z2)={round(discr_math_expectation(dictz2), 4)}\n"
+    answer += f"D(Z1)={round(discr_dispersion(dictz1), 4)} \nD(Z2)={round(discr_dispersion(dictz2), 4)}\n"
+    return text, answer
+
+
+def task_16():
+    text = '16. Дана функция распределения F(x) непрерывной случайной величины X.\n' \
+           'Требуется:\n1) найти плотность вероятности f(x);\n2) построить графики F(x) и f(x);\n' \
+           '3) найти M(X), D(X), (Х);\n4) найти Р(α < X < β) для данных α, β\n'
+    text += '\t|\t0, x <= 3π/4;\nF(x)= |\tcos2x, 3π/4 < x <= π;\n\t|\t1, x > π;\n'
+    alfa = '3π/4'
+    beta = '3π/2'
+    alfa_type = randint(1, 2)
+    if alfa_type == 2:
+        alfa = 'π/6'
+        beta = 'π'
+    text += f'α = {alfa}, β = {beta}\n'
+    answer = "16. \n"
+    answer += '\t|\t0, x <= 3π/4;\nf(x)= |\tsin2x/2, 3π/4 < x <= π;\n\t|\t0, x > π;\n'
+    answer += 'M(X) = 1,4281, M(X^2) = 4,0966, \nD(X) = 2,6685, ' \
+              'σ = 1,6335\n'
+    if alfa_type == 1:
+        answer += f'P(α < x < β) = P({alfa} < x < {beta}) = 1/2'
+    else:
+        answer += f'P(α < x < β) = P({alfa} < x < {beta}) = -√3/4'
+
+    return text, answer
+
+
+def task_17():
+    answer = '17.\n '
+    alfa = randint(2, 3)
+    beta = randint(4, 6)
+    text = '17. 1) проверить свойство  ∫( f(x)dx ) = 1;\n' \
+           '2) построить график f(x);\n3) найти функцию распределения F(x);\n' \
+           '4) найти Р(α < X < β) для данных α, β;\n5) найти М(Х), D(X), σ(X).\n'
+    text += '\t |\t0, x <= 2;\n\t |\t3/10(x-2)^2, 2 < x <= 3;\nf(x)=|\t3/10, 3 < x <= 6;\n\t |\t0, x>6;\n'
+    text += f'α = {alfa}, β = {beta}\n'
+
+    answer += '\t |\t1, x <= 2;\n\t |\t3/10*(x^3/3 - 2x^2 +4x), -1 < x <= 2;\nF(x)=|' \
+              '\t3/10x, 3 < x <= 6;\n\t |\t1, x>6;\n'
+
+    num = round(3 / 10 * alfa, 3)
+    num -= round((3 / 10) * ((beta ** 3) / 3 - ((2 * beta) ** 2) + (4 * beta)), 3)
+    answer += f'Р(α < X < β) = P({alfa} < X < {beta}) = {num}\n'
+
+    MX = round(11 / 40 + 81 / 20, 3)
+    MX2 = round(19 / 25 + 189 / 10, 3)
+    DX = round(MX2 - MX ** 2, 3)
+    std = round(math.sqrt((DX)), 3)
+    answer += f'M(X) = {MX}, D(X) = {DX}, σ(X) = {std}\n'
+    return text, answer
+
+
+def task_18():
+    answer = "18. \n"
+    σ = randint(1, 3)
+    m = randint(4, 7)
+    p1 = randint(10, 15)
+    p2 = randint(8, 11)
+    print(σ, m, p1, p2)
+    text = f"Динамическая нагрузка X на автосцепку вагона распределена по нормальному закону (m = {m} т; σ = {σ} т). " \
+           f"Какова вероятность того, что нагрузка не превысит {p1} т? " \
+           f"Какова вероятность нагрузок не более {p2} т?\n"
+    a1 = integr_lapl(round((p1 - m) / σ, 2))
+    a2 = integr_lapl(round((p2 - m) / σ, 2))
+    answer += f"1)P={a1}\n"
+    answer += f"2)P={a2}\n"
+    return text, answer
+
+
+def task_19():
+    answer = "19. \n"
+    t = randint(1, 5) * 5
+    text = "Минутная стрелка электрических часов на вокзале перемещается скачкообразно в конце каждой минуты. " \
+           "Найти вероятность того, что в данное мгновение часы по-казывают время, " \
+           f"которое отличается от истинного более чем на {t} с.\n"
+    a = round(1 - (t / 30), 3)
+    answer += f"P={a}\n"
+    return text, answer
+
+
+def task_20():
+    m = randint(5, 9)
+    σ = randint(2, 5)
+    inter = randint(10, 15)
+    answer = "20. \n"
+    text = f"Случайная величина X имеет нормальное распределение с плотностью: " \
+           f"f(x) =1/{σ}√2π e^-(x-{m})^2/2*{σ}^2 " \
+           "Определить вероятность события {X > " \
+           f"{inter}" \
+           "}, построить кривую распределения" \
+           "и указать интервал наиболее вероятных значений [m - 3σ; m + 3σ].\n"
+    a1 = 0.5 - integr_lapl(round(((inter - m) / σ), 2))
+    a2 = (m - (3 * σ))
+    a3 = (m + (3 * σ))
+    answer += f"P(X>{inter})={round(a1, 4)}\n"
+    answer += f"[{a2},{a3}]\n"
+    return text, answer
+
+
+def task_21():
+    n = randint(50, 100)
+    r1 = randint(20, 25)
+    r2 = randint(30, 40)
+    t1 = randint(25, 35)
+    t2 = randint(70, 100)
+    answer = "21. \n"
+    text = f"Состав содержит {n} вагонов, причем тормозное усилие в колодках каждого вагона Аi " \
+           f"- случайная величина, имеющая равномерное распределение от {r1} до {r2} т. Для достаточной" \
+           f"обеспеченности поезда тормозными средствами должно выполняться неравенство: А ≥ {t1}n - {t2}," \
+           "где А - суммарное тормозное усилие в колодках; n - число вагонов в поезде." \
+           "С какой вероятностью поезд достаточно обеспечен тормозными средствами?\n"
+    m = (r1 + r2) / 2
+    sig = (r2 - r1) / (math.sqrt(12))
+    ma = m * n
+    siga = round(sig * math.sqrt(n), 2)
+    print(ma, siga)
+    p = 0.5 - integr_lapl(round((((t1 * n) - t2) - ma) / siga, 2))
+    answer += f"P={round(p, 4)}\n"
+    return text, answer
